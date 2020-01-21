@@ -69,7 +69,9 @@ struct ContentView: View {
   }
   
   func removeItems(at offsets: IndexSet) {
-    tasks.taskList.remove(atOffsets: offsets)
+    offsets.forEach() { index in
+      self.tasks.deleteTask(self.tasks.taskList[index])
+    }
   }
 }
 
