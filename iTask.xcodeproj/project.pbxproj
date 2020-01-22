@@ -11,6 +11,7 @@
 		49C936BF23D600BE00B48C4C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C936BE23D600BE00B48C4C /* Task.swift */; };
 		49C936C123D600E800B48C4C /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C936C023D600E800B48C4C /* Tasks.swift */; };
 		49C936C523D6FB5500B48C4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C936C423D6FB5500B48C4C /* Constants.swift */; };
+		49C936C823D73C5000B48C4C /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C936C723D73C5000B48C4C /* GraphQL.swift */; };
 		49CCF5EA23C61DFE00D45B1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCF5E923C61DFE00D45B1D /* AppDelegate.swift */; };
 		49CCF5EC23C61DFE00D45B1D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCF5EB23C61DFE00D45B1D /* SceneDelegate.swift */; };
 		49CCF5EE23C61DFE00D45B1D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CCF5ED23C61DFE00D45B1D /* ContentView.swift */; };
@@ -27,6 +28,7 @@
 		49C936BE23D600BE00B48C4C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		49C936C023D600E800B48C4C /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 		49C936C423D6FB5500B48C4C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		49C936C723D73C5000B48C4C /* GraphQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		49CCF5E623C61DFE00D45B1D /* iTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49CCF5E923C61DFE00D45B1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49CCF5EB23C61DFE00D45B1D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		49C936C623D7121E00B48C4C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				49C936C723D73C5000B48C4C /* GraphQL.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				49CCF5EC23C61DFE00D45B1D /* SceneDelegate.swift in Sources */,
 				49C936C523D6FB5500B48C4C /* Constants.swift in Sources */,
 				49C936C123D600E800B48C4C /* Tasks.swift in Sources */,
+				49C936C823D73C5000B48C4C /* GraphQL.swift in Sources */,
 				49CCF5EE23C61DFE00D45B1D /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
