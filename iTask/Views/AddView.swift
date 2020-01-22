@@ -49,7 +49,19 @@ struct AddView: View {
   }
   
   func saveTask() {
-    let item = Task(name: name, tags: tags)
+    guard let graphQL = graphQL else {
+      print("GraphQL not set up")
+      return
+    }
+    guard let userID = graphQL.userID else {
+      print("userID is not set")
+      return
+    }
+//    guard let user = graphQL.currentUser else {
+//      print("currentUser is not set")
+//      return
+//    }
+    let item = Task(name: name, tags: tags, ownerID: userID)
     tasks.addTask(item)
     presentationMode.wrappedValue.dismiss()
   }

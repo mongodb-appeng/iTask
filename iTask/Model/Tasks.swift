@@ -24,6 +24,7 @@ class Tasks: ObservableObject {
       print("Attempt to add duplicate task")
     } else {
       taskList.append(newTask)
+      graphQL?.addTask(task: newTask)
     }
   }
   

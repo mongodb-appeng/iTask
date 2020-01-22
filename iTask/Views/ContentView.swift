@@ -27,11 +27,11 @@ struct ContentView: View {
         ForEach(tasks.taskList) { item in
           HStack {
             Button(action: {
-              item.complete.toggle()
+              item.active.toggle()
               self.tasks.updateTask(item)
               
             }) {
-              Image(systemName: item.complete ? "checkmark.circle.fill" : "circle")
+              Image(systemName: item.active ? "circle" : "checkmark.circle.fill")
               .padding()
             }
             VStack(alignment: .leading) {
@@ -44,14 +44,14 @@ struct ContentView: View {
                     .font(.footnote)
                     .foregroundColor(.white)
                     .padding(5)
-                    .background(item.complete ? Color.gray : Color.blue)
+                    .background(item.active ? Color.blue : Color.gray)
                     .clipShape(Capsule())
                 }
               }
             }
             Spacer()
           }
-          .foregroundColor(item.complete ? Color.gray : Color.primary)
+          .foregroundColor(item.active ? Color.primary : Color.gray)
         }
         .onDelete(perform: removeItems)
       }

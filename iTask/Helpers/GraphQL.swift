@@ -10,14 +10,76 @@ import Foundation
 import StitchCore
 
 class GraphQL {
+  let url = URL(string: "\(Constants.STITCH_BASE_URL)/api/client/v2.0/app/\(Constants.STITCH_APP_ID)/graphql")!
   var accessToken: String? = nil
   var refreshToken: String? = nil
+  var userID: String? = nil
+  
   var currentUser: StitchCore.StitchUser? {
     return stitchClient.auth.isLoggedIn ? stitchClient.auth.currentUser : nil
   }
 
   var userToken: String? {
     return accessToken
+  }
+  
+  class AddTaskObject: Codable {
+    
+    class Variables: Codable {
+      let data: Task
+      
+      init(task: Task) {
+        self.data = task
+      }
+    }
+    
+    let query =
+      """
+      mutation($data:TaskInsertInput!){
+          insertOneTask(data:$data){
+              id,
+              name,
+              tags,
+              active
+          }
+      }
+      """
+    let variables: Variables
+    
+    init(task: Task) {
+      self.variables = Variables(task: task)
+    }
+  }
+  
+  func addTask(task: Task) {
+    var request = URLRequest(url: url)
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    guard let accessToken = accessToken else {
+      print("Access token not set")
+      return
+    }
+    request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+    request.httpMethod = "POST"
+    guard let body = try? JSONEncoder().encode(AddTaskObject(task: task)) else {
+      print("Failed to encode the addTask body")
+      return
+    }
+    print(String(data:body, encoding: .utf8)!)
+    request.httpBody = body
+    URLSession.shared.dataTask(with: request) { data, response, error in
+      guard let data = data else {
+          print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
+          return
+      }
+      print("Respone data:")
+      print(String(data:data, encoding: .utf8)!)
+    }.resume()
+  }
+  
+  class TokenData: Codable {
+    var access_token = ""
+    var refresh_token = ""
+    var user_id = ""
   }
   
   func fetchToken() {
@@ -45,6 +107,7 @@ class GraphQL {
       if let decodedToken = try? JSONDecoder().decode(TokenData.self, from: data) {
         self.accessToken = decodedToken.access_token
         self.refreshToken = decodedToken.refresh_token
+        self.userID = decodedToken.user_id
         print("accessToken: \(self.accessToken ?? "")")
         print("refreshToken: \(self.refreshToken ?? "")")
       } else {
@@ -56,9 +119,4 @@ class GraphQL {
   init() {
     self.fetchToken()
   }
-}
-
-class TokenData: Codable {
-  var access_token = ""
-  var refresh_token = ""
 }
