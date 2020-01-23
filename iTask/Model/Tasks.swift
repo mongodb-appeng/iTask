@@ -24,12 +24,14 @@ class Tasks: ObservableObject {
       print("Attempt to add duplicate task")
     } else {
       taskList.append(newTask)
+      graphQL.addTask(task: newTask)
     }
   }
   
   func deleteTask(_ oldTask: Task) {
     if let index = taskList.firstIndex(of: oldTask) {
       taskList.remove(at: index)
+      graphQL.deleteTask(task: oldTask)
     } else {
       print("Attempt to delete a non-existent task")
     }
@@ -38,20 +40,27 @@ class Tasks: ObservableObject {
   func updateTask(_ existingTask: Task) {
     if let index = taskList.firstIndex(of: existingTask) {
       taskList[index] = existingTask
+      graphQL.updateTask(task: existingTask)
     } else {
       print("Attempt to update a non-existent task")
     }
   }
   
+  func fetchTasks() {
+    graphQL.fetchTasks(tasks: self)
+  }
+  
   init() {
-    print("Fetching Tasks")
-    if let items = UserDefaults.standard.data(forKey: "Tasks") {
-      let decoder = JSONDecoder()
-      if let decoded = try? decoder.decode([Task].self, from: items) {
-        self.taskList = decoded
-        return
-      }
-    }
-    self.taskList = []
+    graphQL.connect(tasks: self)
+//    print("Fetching Tasks")
+//    fetchTasks()
+//    if let items = UserDefaults.standard.data(forKey: "Tasks") {
+//      let decoder = JSONDecoder()
+//      if let decoded = try? decoder.decode([Task].self, from: items) {
+//        self.taskList = decoded
+//        return
+//      }
+//    }
+//    self.taskList = []
   }
 }

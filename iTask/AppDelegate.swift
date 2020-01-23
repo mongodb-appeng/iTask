@@ -11,14 +11,14 @@ import StitchCore
 
 let stitchConfig: StitchAppClientConfiguration = StitchAppClientConfigurationBuilder().with(baseURL: Constants.STITCH_BASE_URL).build()
 let stitchClient = try! Stitch.initializeDefaultAppClient(withClientAppID: Constants.STITCH_APP_ID, withConfig: stitchConfig)
-var graphQL: GraphQL?
+var graphQL = GraphQL()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    graphQL = GraphQL()
+//    graphQL = GraphQL()
     
     stitchClient.auth.login(withCredential: AnonymousCredential()) { result in
       switch result {

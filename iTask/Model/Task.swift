@@ -9,18 +9,18 @@
 import Foundation
 
 class Task: Identifiable, Codable, Equatable {
-  let id = UUID()
+//  let id = UUID().uuidString
+  let id: String
+  let owner_id: String
   var name: String
-//  var type: String // TODO remove
-//  var amount: Int // TODO remove
-  var complete = false
+  var active = true
   var tags: [String] = []
   
-  init(name: String, tags: [String]) {
+  init(name: String, tags: [String], ownerID: String) {
     self.name = name
     self.tags = tags
-//    self.type = type
-//    self.amount = amount
+    self.owner_id = ownerID
+    self.id = UUID().uuidString
   }
   
   static func == (lhs: Task, rhs: Task) -> Bool {
