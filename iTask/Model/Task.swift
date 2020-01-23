@@ -9,7 +9,8 @@
 import Foundation
 
 class Task: Identifiable, Codable, Equatable {
-  let id = UUID()
+//  let id = UUID().uuidString
+  let id: String
   let owner_id: String
   var name: String
   var active = true
@@ -19,6 +20,7 @@ class Task: Identifiable, Codable, Equatable {
     self.name = name
     self.tags = tags
     self.owner_id = ownerID
+    self.id = UUID().uuidString
   }
   
   static func == (lhs: Task, rhs: Task) -> Bool {

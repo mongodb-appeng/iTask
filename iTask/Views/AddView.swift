@@ -49,10 +49,10 @@ struct AddView: View {
   }
   
   func saveTask() {
-    guard let graphQL = graphQL else {
-      print("GraphQL not set up")
-      return
-    }
+//    guard let graphQL = graphQL else {
+//      print("GraphQL not set up")
+//      return
+//    }
     guard let userID = graphQL.userID else {
       print("userID is not set")
       return
