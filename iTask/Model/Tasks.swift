@@ -52,15 +52,5 @@ class Tasks: ObservableObject {
   
   init() {
     graphQL.connect(tasks: self)
-//    print("Fetching Tasks")
-//    fetchTasks()
-//    if let items = UserDefaults.standard.data(forKey: "Tasks") {
-//      let decoder = JSONDecoder()
-//      if let decoded = try? decoder.decode([Task].self, from: items) {
-//        self.taskList = decoded
-//        return
-//      }
-//    }
-//    self.taskList = []
   }
 }

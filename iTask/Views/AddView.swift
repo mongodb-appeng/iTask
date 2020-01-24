@@ -14,12 +14,24 @@ struct AddView: View {
   @State private var name = ""
   @State private var tag = ""
   @State private var tags: [String] = []
+  @State private var dueDate = Date()
+  
+  var dateFormatter: DateFormatter {
+      let formatter = DateFormatter()
+      formatter.dateStyle = .long
+      return formatter
+  }
   
   var body: some View {
     NavigationView {
       Form {
         Section {
           TextField("Task name", text: $name)
+        }
+        Section {
+          DatePicker(selection: $dueDate, in: Date()..., displayedComponents: .date) {
+            Text("Due date")
+          }
         }
         Section {
           HStack {
@@ -49,30 +61,27 @@ struct AddView: View {
   }
   
   func saveTask() {
-//    guard let graphQL = graphQL else {
-//      print("GraphQL not set up")
-//      return
-//    }
+    addTag()
     guard let userID = graphQL.userID else {
       print("userID is not set")
       return
     }
-//    guard let user = graphQL.currentUser else {
-//      print("currentUser is not set")
-//      return
-//    }
-    let item = Task(name: name, tags: tags, ownerID: userID)
+    let item = Task(name: name, tags: tags, ownerID: userID,
+                    dueBy: Date.getStringFromDate(date: dueDate))
     tasks.addTask(item)
     presentationMode.wrappedValue.dismiss()
   }
   
   func addTag() {
-    if let _ = tags.firstIndex(of: tag) {
-      // tag is already in the array
-    } else {
-      tags.append(tag)
+    if tag.count > 0
+    {
+      if let _ = tags.firstIndex(of: tag) {
+        // tag is already in the array
+      } else {
+        tags.append(tag)
+      }
+      tag = ""
     }
-    tag = ""
   }
   
   func removeTag(_ tagName: String) {
