@@ -38,7 +38,7 @@ class GraphQL {
   }
   
   class FetchTasksObject: Codable {
-    let query = "{tasks(sortBy:ID_DESC){id,name,tags,active,owner_id}}"
+    let query = "{tasks(sortBy:DUEBY_ASC){id,name,tags,active,owner_id,createdAt,dueBy}}"
   }
   
   class FetchTaskResultData : Codable {
@@ -73,7 +73,9 @@ class GraphQL {
       do {
         let decoded = try decoder.decode(FetchTasksResult.self, from: data)
         print("Decoded \(decoded.data.tasks.count)")
-        print("First id: \(decoded.data.tasks[0].id)")
+        if (decoded.data.tasks.count > 0) {
+          print("First id: \(decoded.data.tasks[0].id)")
+        }
         DispatchQueue.main.async {
           tasks.taskList = decoded.data.tasks
         }
@@ -96,12 +98,7 @@ class GraphQL {
     let query =
       """
       mutation($data:TaskInsertInput!){
-          insertOneTask(data:$data){
-              id,
-              name,
-              tags,
-              active
-          }
+          insertOneTask(data:$data) {_id}
       }
       """
     let variables: Variables
@@ -112,8 +109,11 @@ class GraphQL {
   }
   
   func addTask(task: Task) {
-    guard let body = try? JSONEncoder().encode(AddTaskObject(task: task)) else {
-      print("Failed to encode the addTask body")
+    var body: Data
+    do {
+      body = try JSONEncoder().encode(AddTaskObject(task: task))
+    } catch let error {
+      print("Failed to encode the addTask body: \(error)")
       return
     }
     guard let request = buildRequest(body: body) else {
@@ -153,10 +153,7 @@ class GraphQL {
       """
       mutation($data:TaskQueryInput!){
         deleteOneTask(query:$data){
-          id,
-          name,
-          tags,
-          active
+          _id
         }
       }
       """
@@ -211,10 +208,7 @@ class GraphQL {
       """
       mutation($query:TaskQueryInput!, $set:TaskUpdateInput!){
           updateOneTask(query:$query, set:$set){
-              id,
-              name,
-              tags,
-              active
+              _id
           }
       }
       """
@@ -285,9 +279,5 @@ class GraphQL {
         print("Invalid token response from server")
       }
     }.resume()
-  }
-  
-  init() {
-//    self.fetchToken(tasks: tasks)
   }
 }
