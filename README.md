@@ -138,7 +138,7 @@ open iTask.xcworkspace
 
 Edit `Constants.swift`, replacing `itask-xxxxx` with your Stitch APP ID (visible in the Stitch UI).
 
-Choose your target in XCode (e.g. the "iPhone Xs Max" simulator).
+Choose your target in Xcode (e.g. the "iPhone Xs Max" simulator).
 
 `Command-r` to build 
 
