@@ -156,7 +156,6 @@
 				49CCF5E223C61DFE00D45B1D /* Sources */,
 				49CCF5E323C61DFE00D45B1D /* Frameworks */,
 				49CCF5E423C61DFE00D45B1D /* Resources */,
-				23C81812558C0F4E16EE4A11 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -214,23 +213,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		23C81812558C0F4E16EE4A11 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iTask/Pods-iTask-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-iTask/Pods-iTask-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iTask/Pods-iTask-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C8573CA655044ECFC510E8BA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

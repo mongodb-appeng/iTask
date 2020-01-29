@@ -6,6 +6,6 @@ target 'iTask' do
   use_frameworks!
 
   # Pods for iTask
-  pod 'StitchSDK', '= 6.1.0'
-  pod 'MongoSwift'
+#  pod 'StitchSDK', '= 6.1.0'
+#  pod 'MongoSwift'
 end

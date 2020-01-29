@@ -67,7 +67,7 @@ struct AddView: View {
       return
     }
     let item = Task(name: name, tags: tags, ownerID: userID,
-                    dueBy: Date.getStringFromDate(date: dueDate))
+                    dueBy: Date.getStringFromDate(dueDate))
     tasks.addTask(item)
     presentationMode.wrappedValue.dismiss()
   }
