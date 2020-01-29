@@ -8,17 +8,25 @@
 
 import SwiftUI
 
-struct ListItem: View {
-  @State private var task: Task
+class TimerHolder : ObservableObject {
+  var timer : Timer!
+  func start(tasks: Tasks) {
+    self.timer?.invalidate()
+    self.timer = Timer.scheduledTimer(withTimeInterval: 25*60, repeats: true) { _ in
+      print("Timer expired")
+      graphQL.connect(tasks: tasks)
+    }
+  }
   
-  var body: some View {
-    Text("task")
+  func stop() {
+    print("Stopping timer")
+    self.timer?.invalidate()
   }
 }
 
 struct ContentView: View {
   @ObservedObject var tasks = Tasks()
-
+  @ObservedObject var connectTimer = TimerHolder()
   @State private var showingAddTask = false
   
   var body: some View {
@@ -32,7 +40,7 @@ struct ContentView: View {
               
             }) {
               Image(systemName: item.active ? "circle" : "checkmark.circle.fill")
-              .padding()
+                .padding()
             }
             VStack(alignment: .leading) {
               Text(item.name)
@@ -63,9 +71,23 @@ struct ContentView: View {
       .navigationBarItems(leading: EditButton(), trailing: Button(action: {
         self.showingAddTask = true
       }) {
-          Image(systemName: "plus")
+        Image(systemName: "plus")
         }
       )
+        .onAppear() {
+          self.connectTimer.start(tasks: self.tasks)
+      }
+      .onDisappear() {
+        self.connectTimer.stop()
+      }
+      .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+        print("Moving to the background")
+        self.connectTimer.stop()
+      }
+      .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+        print("Moving back to the foreground")
+        self.connectTimer.start(tasks: self.tasks)
+      }
     }
     .sheet(isPresented: $showingAddTask) {
       AddView(tasks: self.tasks)
@@ -76,6 +98,10 @@ struct ContentView: View {
     offsets.forEach() { index in
       self.tasks.deleteTask(self.tasks.taskList[index])
     }
+  }
+  
+  func connect() {
+    graphQL.connect(tasks: tasks)
   }
 }
 
