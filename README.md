@@ -150,7 +150,7 @@ Choose your target in XCode (e.g. the "iPhone Xs Max" simulator).
 1. Create a search bar to filter tasks
 1. Support custom images for tasks
 
-## Getting involved
+## Getting Involved
 
 If you have any issues with the setup or find any bugs please open an issue and we will address them as soon as possible.
 
