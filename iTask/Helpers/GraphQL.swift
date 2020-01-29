@@ -68,7 +68,6 @@ class GraphQL {
       }
       print("Fetch task respone data:")
       print(String(data:data, encoding: .utf8)!)
-      // TODO store the results in tasks.TaskList
       let decoder = JSONDecoder()
       do {
         let decoded = try decoder.decode(FetchTasksResult.self, from: data)
@@ -98,7 +97,7 @@ class GraphQL {
     let query =
       """
       mutation($data:TaskInsertInput!){
-          insertOneTask(data:$data) {_id}
+          insertOneTask(data:$data) {id}
       }
       """
     let variables: Variables
@@ -107,7 +106,7 @@ class GraphQL {
       self.variables = Variables(task: task)
     }
   }
-  
+   
   func addTask(task: Task) {
     var body: Data
     do {
@@ -148,12 +147,11 @@ class GraphQL {
       }
     }
     
-    // TODO are any of the attributes in query actually needed?
     let query =
       """
       mutation($data:TaskQueryInput!){
         deleteOneTask(query:$data){
-          _id
+          id
         }
       }
       """
@@ -208,7 +206,7 @@ class GraphQL {
       """
       mutation($query:TaskQueryInput!, $set:TaskUpdateInput!){
           updateOneTask(query:$query, set:$set){
-              _id
+              id
           }
       }
       """
@@ -244,21 +242,39 @@ class GraphQL {
     var user_id = ""
   }
   
+  class RefreshedTokenData: Codable {
+    var access_token = ""
+  }
+  
   func connect(tasks: Tasks) {
-//  func connect(tasks: Tasks, whenDone: () -> ()) {
     // TODO need to repeat this every 30 minutes, or when a GraphQL request fails
     // User https://www.hackingwithswift.com/example-code/system/how-to-make-an-action-repeat-using-timer +
     // https://www.hackingwithswift.com/books/ios-swiftui/how-to-be-notified-when-your-swiftui-app-moves-to-the-background
     
+    // If this isn't the first time that this app has run on this device then it should be
+    // possible to retrieve the refresh token so that we auethenticate as the same anonymous user
+    if let tokens = UserDefaults.standard.data(forKey: "iTaskToken") {
+      let decoder = JSONDecoder()
+      if let decoded = try? decoder.decode(TokenData.self, from: tokens) {
+        self.refreshToken = decoded.refresh_token
+        self.userID = decoded.user_id
+        print("Found refresh token: \(self.refreshToken ?? "")")
+      }
+    }
     
-    // TODO only fetch token if not already set
     print("Fetching new auth token")
-    let urlString = "\(Constants.STITCH_BASE_URL)/api/client/v2.0/app/\(Constants.STITCH_APP_ID)/auth/providers/anon-user/login"
+    var urlString: String
+    if let _ = refreshToken {
+      urlString = "\(Constants.STITCH_BASE_URL)/api/client/v2.0/auth/session"
+      print("Using refresh URL: \(urlString)")
+    } else {
+      urlString = "\(Constants.STITCH_BASE_URL)/api/client/v2.0/app/\(Constants.STITCH_APP_ID)/auth/providers/anon-user/login"
+    }
     let url = URL(string: urlString)!
     var request = URLRequest(url: url)
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     if let refreshToken = refreshToken {
-      request.setValue("Authorization", forHTTPHeaderField: "Bearer \(refreshToken)")
+      request.setValue("Bearer \(refreshToken)", forHTTPHeaderField: "Authorization")
     }
     request.httpMethod = "POST"
     
@@ -268,16 +284,30 @@ class GraphQL {
           print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
           return
       }
-      if let decodedToken = try? JSONDecoder().decode(TokenData.self, from: data) {
-        self.accessToken = decodedToken.access_token
-        self.refreshToken = decodedToken.refresh_token
-        self.userID = decodedToken.user_id
-        print("accessToken: \(self.accessToken ?? "")")
-        print("refreshToken: \(self.refreshToken ?? "")")
-        self.fetchTasks(tasks: tasks)
+      print ("Token response: \(String(data:data, encoding: .utf8) ?? "")")
+
+      if let _ = self.refreshToken {
+        if let decodedToken = try? JSONDecoder().decode(RefreshedTokenData.self, from: data) {
+          self.accessToken = decodedToken.access_token
+          print("accessToken: \(self.accessToken ?? "")")
+        } else {
+          print("Invalid token response from server")
+          return
+        }
       } else {
-        print("Invalid token response from server")
+        UserDefaults.standard.set(data, forKey: "iTaskToken")
+        if let decodedToken = try? JSONDecoder().decode(TokenData.self, from: data) {
+          self.accessToken = decodedToken.access_token
+          self.refreshToken = decodedToken.refresh_token
+          self.userID = decodedToken.user_id
+          print("accessToken: \(self.accessToken ?? "")")
+          print("refreshToken: \(self.refreshToken ?? "")")
+        } else {
+          print("Invalid token response from server")
+          return
+        }
       }
+      self.fetchTasks(tasks: tasks)
     }.resume()
   }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class Task: Identifiable, Codable, Equatable {
-  let id: String
+  var id: String
   let owner_id: String
   let createdAt: String
   var name: String
@@ -23,7 +23,7 @@ class Task: Identifiable, Codable, Equatable {
     self.owner_id = ownerID
     self.dueBy = dueBy
     self.id = UUID().uuidString
-    self.createdAt = Date.getStringFromDate(date: Date())
+    self.createdAt = Date.getStringFromDate(Date())
   }
   
   static func == (lhs: Task, rhs: Task) -> Bool {

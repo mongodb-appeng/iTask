@@ -38,9 +38,10 @@ struct ContentView: View {
               Text(item.name)
                 .font(.headline)
                 .padding(.bottom, 5)
-              Text(item.dueBy)
+              Text(Date.getPrintStringFromISOString(item.dueBy))
                 .font(.footnote)
-                .foregroundColor(.green)
+                .foregroundColor(item.active ? Color.green : Color.gray)
+                .padding(.bottom, 5)
               HStack {
                 ForEach(item.tags, id: \.self) { tag in
                   Text(tag)
