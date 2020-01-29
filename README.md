@@ -140,7 +140,7 @@ Edit `Constants.swift`, replacing `itask-xxxxx` with your Stitch APP ID (visible
 
 Choose your target in Xcode (e.g. the "iPhone Xs Max" simulator).
 
-`Command-r` to build 
+`Command-r` in Xcode to build and run the app.
 
 ## Optional Features to Add
 
