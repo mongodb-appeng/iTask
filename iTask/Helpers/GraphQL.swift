@@ -246,11 +246,7 @@ class GraphQL {
     var access_token = ""
   }
   
-  func connect(tasks: Tasks) {
-    // TODO need to repeat this every 30 minutes, or when a GraphQL request fails
-    // User https://www.hackingwithswift.com/example-code/system/how-to-make-an-action-repeat-using-timer +
-    // https://www.hackingwithswift.com/books/ios-swiftui/how-to-be-notified-when-your-swiftui-app-moves-to-the-background
-    
+  func connect(tasks: Tasks) {   
     // If this isn't the first time that this app has run on this device then it should be
     // possible to retrieve the refresh token so that we auethenticate as the same anonymous user
     if let tokens = UserDefaults.standard.data(forKey: "iTaskToken") {
