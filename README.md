@@ -125,3 +125,40 @@ From the Stitch UI, go to the `GraphQL` menu (found on the left hand side), this
 Using the documentation and the UI various queries can be tested here. Because we are entering queries in the Admin UI, the `owner_id` attribute is not needed.
 
 Take a note of the GraphQL endpoint listed on that screen.
+
+## Create and Run the iOS iTask App
+Ensure that [Xcode](https://developer.apple.com/xcode/) and [CocoaPods](https://cocoapods.org/) are installed.
+
+```
+git clone https://github.com/mongodb-appeng/iTask.git
+cd iTask
+pod install
+open iTask.xcworkspace
+```
+
+Edit `Constants.swift`, replacing `itask-xxxxx` with your Stitch APP ID (visible in the Stitch UI).
+
+Choose your target in XCode (e.g. the "iPhone Xs Max" simulator).
+
+`Command-r` to build 
+
+## Optional Features to Add
+
+1. Use 3rd-party or username/password authentication
+1. Introduce a recurring task
+1. Create alerts for tasks that are coming due
+1. Create a search bar to filter tasks
+1. Support custom images for tasks
+
+## Getting involved
+
+If you have any issues with the setup or find any bugs please open an issue and we will address them as soon as possible.
+
+We also accept pull requests, if you feel like adding features or fixing bugs you find, issue a pull request and we will review it and work with you to get it merged.
+
+## References
+
+- [GraphQL](https://graphql.org/)
+- [GraphQL Foundation](https://foundation.graphql.org/)
+- [Atlas Documentation](https://docs.atlas.mongodb.com/)
+- [Stitch Documentation](https://docs.mongodb.com/stitch/)
