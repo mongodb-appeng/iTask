@@ -7,17 +7,12 @@
 //
 
 import Foundation
-//import StitchCore
 
 class GraphQL {
   let url = URL(string: "\(Constants.STITCH_BASE_URL)/api/client/v2.0/app/\(Constants.STITCH_APP_ID)/graphql")!
   var accessToken: String? = nil
   var refreshToken: String? = nil
   var userID: String? = nil
-  
-//  var currentUser: StitchCore.StitchUser? {
-//    return stitchClient.auth.isLoggedIn ? stitchClient.auth.currentUser : nil
-//  }
 
   var userToken: String? {
     return accessToken
@@ -168,7 +163,7 @@ class GraphQL {
       return
     }
     guard let request = buildRequest(body: body) else {
-      print("Failed to build addTask request")
+      print("Failed to build deleteTask request")
       return
     }
     URLSession.shared.dataTask(with: request) { data, response, error in
@@ -223,7 +218,7 @@ class GraphQL {
       return
     }
     guard let request = buildRequest(body: body) else {
-      print("Failed to build addTask request")
+      print("Failed to build updateTask request")
       return
     }
     URLSession.shared.dataTask(with: request) { data, response, error in
