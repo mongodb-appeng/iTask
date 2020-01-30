@@ -3,7 +3,8 @@
 //  iTask
 //
 //  Created by Andrew Morgan on 08/01/2020.
-//  Copyright © 2020 ClusterDB. All rights reserved.
+//  Copyright © 2020 MongoDB. All rights reserved.
+//  See https://github.com/mongodb-appeng/iTask/LICENSE for license details
 //
 
 import SwiftUI
@@ -12,7 +13,7 @@ class TimerHolder : ObservableObject {
   var timer : Timer!
   func start(tasks: Tasks) {
     self.timer?.invalidate()
-    self.timer = Timer.scheduledTimer(withTimeInterval: 25*60, repeats: true) { _ in
+    self.timer = Timer.scheduledTimer(withTimeInterval: Constants.STITCH_GRAPHQL_TOKEN_TIMEOUT*60*0.75, repeats: true) { _ in
       print("Timer expired")
       graphQL.connect(tasks: tasks)
     }
@@ -32,7 +33,7 @@ struct ContentView: View {
   var body: some View {
     return NavigationView {
       List {
-        ForEach(tasks.taskList) { item in
+        ForEach(tasks.taskList, id: \._id) { item in
           HStack {
             Button(action: {
               item.active.toggle()

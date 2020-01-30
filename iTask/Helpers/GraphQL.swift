@@ -2,8 +2,9 @@
 //  GraphQL.swift
 //  iTask
 //
-//  Created by Andrew Morgan on 21/01/2020.
-//  Copyright © 2020 ClusterDB. All rights reserved.
+//  Created by Andrew Morgan on 08/01/2020.
+//  Copyright © 2020 MongoDB. All rights reserved.
+//  See https://github.com/mongodb-appeng/iTask/LICENSE for license details
 //
 
 import Foundation
@@ -33,7 +34,7 @@ class GraphQL {
   }
   
   class FetchTasksObject: Codable {
-    let query = "{tasks(sortBy:DUEBY_ASC){id,name,tags,active,owner_id,createdAt,dueBy}}"
+    let query = "{tasks(sortBy:DUEBY_ASC){_id,name,tags,active,owner_id,createdAt,dueBy}}"
   }
   
   class FetchTaskResultData : Codable {
@@ -68,7 +69,7 @@ class GraphQL {
         let decoded = try decoder.decode(FetchTasksResult.self, from: data)
         print("Decoded \(decoded.data.tasks.count)")
         if (decoded.data.tasks.count > 0) {
-          print("First id: \(decoded.data.tasks[0].id)")
+          print("First _id: \(decoded.data.tasks[0]._id)")
         }
         DispatchQueue.main.async {
           tasks.taskList = decoded.data.tasks
@@ -92,7 +93,7 @@ class GraphQL {
     let query =
       """
       mutation($data:TaskInsertInput!){
-          insertOneTask(data:$data) {id}
+          insertOneTask(data:$data) {_id}
       }
       """
     let variables: Variables
@@ -127,10 +128,10 @@ class GraphQL {
   class DeleteTaskObject: Codable {
     
     class Data: Codable {
-      let id: String
+      let _id: String
       
       init(task: Task) {
-        id = task.id
+        _id = task._id
       }
     }
     
@@ -146,7 +147,7 @@ class GraphQL {
       """
       mutation($data:TaskQueryInput!){
         deleteOneTask(query:$data){
-          id
+          _id
         }
       }
       """
@@ -179,11 +180,11 @@ class GraphQL {
   class UpdateTaskObject: Codable {
     
     class Query: Codable {
-      let id: String
+      let _id: String
       
       init(task: Task) {
-        print("Updated task with id: \(task.id)")
-        id = task.id
+        print("Updated task with _id: \(task._id)")
+        _id = task._id
       }
     }
     
@@ -201,7 +202,7 @@ class GraphQL {
       """
       mutation($query:TaskQueryInput!, $set:TaskUpdateInput!){
           updateOneTask(query:$query, set:$set){
-              id
+              _id
           }
       }
       """

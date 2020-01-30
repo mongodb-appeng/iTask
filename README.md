@@ -57,9 +57,6 @@ Use [these instructions](https://docs.mongodb.com/stitch/mongodb/enforce-a-docum
 {
   "properties": {
     "_id": {
-      "bsonType": "objectId"
-    },
-    "id": {
       "bsonType": "string"
     },
     "name": {
