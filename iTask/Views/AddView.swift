@@ -6,8 +6,11 @@
 //  Copyright © 2020 MongoDB. All rights reserved.
 //  See https://github.com/mongodb-appeng/iTask/LICENSE for license details
 //
+// Add a new task
 
 import SwiftUI
+
+// MARK: VIEW
 
 struct AddView: View {
   @Environment(\.presentationMode) var presentationMode
@@ -91,6 +94,8 @@ struct AddView: View {
     }
   }
 }
+
+// MARK: PREVIEW
 
 struct AddView_Previews: PreviewProvider {
   static var previews: some View {
