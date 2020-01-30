@@ -1,4 +1,4 @@
-# iTask: an iOS Demo App for MongoDB GraphQL
+# ![iTask icon](resources/iTask_icon_60.png) iTask: an iOS Demo App for MongoDB GraphQL
 
 ## Description
 MongoDB Stitch provides GraphQL APIs (Beta) to access data stored in MongoDB Atlas. This tutorial walks through a simple TODO application in which users can create, read, update, and delete tasks using GraphQL.
