@@ -4,8 +4,8 @@
 MongoDB Stitch provides GraphQL APIs (Beta) to access data stored in MongoDB Atlas. This tutorial walks through a simple TODO application in which users can create, read, update, and delete tasks using GraphQL.
 
 ## Disclaimer
-This app is intended how to access MongoDB's GraphQL API, and should not be used as a production application. In particular:
- - The app uses anonymous authentication which simplifies the application code, but if a user runs the app on a new device then they won't see their previous tasks. Consider using one of the other supported MongoDB Stitch autentication methods such as JWT, username/password, Apple, Google, or Facebook.
+This app is intended to show how to access MongoDB's GraphQL API, and should not be used as a production application. In particular:
+ - The app uses anonymous authentication which simplifies the application code and user experience, but if a user runs the app on a new device then they won't see their previous tasks. Consider using one of the other supported MongoDB Stitch autentication methods such as JWT, username/password, Apple, Google, or Facebook.
  - The local task data is updated, regardless of whether the GraphQL requests sent to MongoDB succeed. Keeping multiple copies of data consistent accross a distributed system (while maintaining "offline-first" behavior for the mobile app) is a complex problem. [MongoDB Realm](https://www.mongodb.com/realm) is addressing this issue.
 
 ## The Software Stack
