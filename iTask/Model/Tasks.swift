@@ -2,22 +2,15 @@
 //  Tasks.swift
 //  iTask
 //
-//  Created by Andrew Morgan on 20/01/2020.
-//  Copyright © 2020 ClusterDB. All rights reserved.
+//  Created by Andrew Morgan on 08/01/2020.
+//  Copyright © 2020 MongoDB. All rights reserved.
+//  See https://github.com/mongodb-appeng/iTask/LICENSE for license details
 //
 
 import Foundation
 
 class Tasks: ObservableObject {
-  @Published var taskList = [Task]() {
-    didSet {
-      print("Setting Tasks")
-      let encoder = JSONEncoder()
-      if let encoded = try? encoder.encode(taskList) {
-        UserDefaults.standard.set(encoded, forKey: "Tasks")
-      }
-    }
-  }
+  @Published var taskList = [Task]()
   
   func addTask(_ newTask: Task) {
     if let _ = taskList.firstIndex(of: newTask) {

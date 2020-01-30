@@ -2,8 +2,9 @@
 //  AddView.swift
 //  iTask
 //
-//  Created by Andrew Morgan on 09/01/2020.
-//  Copyright © 2020 ClusterDB. All rights reserved.
+//  Created by Andrew Morgan on 08/01/2020.
+//  Copyright © 2020 MongoDB. All rights reserved.
+//  See https://github.com/mongodb-appeng/iTask/LICENSE for license details
 //
 
 import SwiftUI
