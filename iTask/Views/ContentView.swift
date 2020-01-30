@@ -9,6 +9,11 @@
 
 import SwiftUI
 
+// MARK: TIMER
+/*
+ The GraphQL API authorization token is only valid for a specific period and
+ it's necessary to periodically re-auhtorize
+ */
 class TimerHolder : ObservableObject {
   var timer : Timer!
   func start(tasks: Tasks) {
@@ -24,6 +29,8 @@ class TimerHolder : ObservableObject {
     self.timer?.invalidate()
   }
 }
+
+// MARK: VIEW
 
 struct ContentView: View {
   @ObservedObject var tasks = Tasks()
@@ -105,6 +112,8 @@ struct ContentView: View {
     graphQL.connect(tasks: tasks)
   }
 }
+
+// MARK: PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {

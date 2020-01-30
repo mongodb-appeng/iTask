@@ -6,6 +6,8 @@
 //  Copyright © 2020 MongoDB. All rights reserved.
 //  See https://github.com/mongodb-appeng/iTask/LICENSE for license details
 //
+// Extends the `Date` class with helpers to map between Swift's Date class,
+// the format required by MongoDB, and how we want them displayed in the app.
 
 import Foundation
 
@@ -15,10 +17,6 @@ extension Date {
   static func getStringFromDate(_ date: Date) -> String {
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [.withInternetDateTime]
-//                               .withDashSeparatorInDate,
-//                               .withFullDate,
-//                               .withFractionalSeconds,
-//                               .withColonSeparatorInTimeZone]
     return formatter.string(from: date)
   }
   
@@ -35,7 +33,6 @@ extension Date {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     formatter.timeStyle = .none
-//    formatter.locale = Locale(identifier: "en_US")
     return formatter.string(from: date)
   }
   

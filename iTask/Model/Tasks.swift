@@ -38,11 +38,7 @@ class Tasks: ObservableObject {
       print("Attempt to update a non-existent task")
     }
   }
-  
-  func fetchTasks() {
-    graphQL.fetchTasks(tasks: self)
-  }
-  
+
   init() {
     graphQL.connect(tasks: self)
   }

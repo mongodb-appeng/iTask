@@ -10,9 +10,9 @@
 import Foundation
 
 struct Constants {
-  static let STITCH_APP_ID = "itask-xoind" // Get this from your Stitch app
+  static let STITCH_APP_ID = "itask-xxxxx" // Get this from your Stitch app
   
   static let STITCH_BASE_URL = "https://stitch.mongodb.com" // Don't change
-  static let STITCH_GRAPHQL_TOKEN_TIMEOUT = 30.0  // Auth token refresh interval in minutes
-                                                // - shouldn't need to change
+  static let STITCH_GRAPHQL_TOKEN_TIMEOUT = 30.0 // Auth token refresh interval in minutes
+                                                 // - shouldn't need to change
 }
