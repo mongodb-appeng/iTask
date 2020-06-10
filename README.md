@@ -8,7 +8,7 @@ This app is intended to show how to access MongoDB's GraphQL API, and should not
  - The app uses anonymous authentication which simplifies the application code and user experience, but if a user runs the app on a new device then they won't see their previous tasks. Consider using one of the other supported MongoDB Stitch autentication methods such as JWT, username/password, Apple, Google, or Facebook.
  - The local task data is updated, regardless of whether the GraphQL requests sent to MongoDB succeed. Keeping multiple copies of data consistent accross a distributed system (while maintaining "offline-first" behavior for the mobile app) is a complex problem. [MongoDB Realm](https://www.mongodb.com/realm) is addressing this issue.
 
-## The Software Stack
+## Software Stack
 - Backend
   - [MongoDB Atlas](https://cloud.mongodb.com/) (Database as a Service)
   - [MongoDB Stitch](https://www.mongodb.com/cloud/stitch) (Serverless platform)
